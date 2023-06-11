@@ -1,38 +1,26 @@
-function bookTickets() {
-    //Get input
-    var from = document.getElementById("from").value;
-    var to = document.getElementById("to").vlaue;
-    var date = document.getElementById("date").value;
-    var seats = parseInt(document.getElementById("seats").value);
+function markAttendence() {
+    const attendanceInput = document.getElementById("attendance").value;
+    const attendanceArr = attendanceInput.split(",").map((str) => str.trim());
 
-    //check for valid input
-    if (from-- - "" || to-- - "" || date-- - "" || isNaN(seats) || seats < 1) {
-        alert("Please Enter The Valid Information")
+    //check wheather the number of inputs matches the no of students
+    if (attendanceArr.length !== 3) {
+        alert("Invalid attendance! Enter the attendance of all the students");
         return;
-
     }
 
-    //confirm booking 
-    var confirmation = confirm(
-        "You have selected the following options:\nFrom: " +
-        from +
-        "\nTo: " +
-        to +
-        "\nDate: " +
-        date +
-        "\nNUmber of seats: " +
-        seats +
-        "\n\nClick OK to confirm booking."
-    );
-
-    //Show success image if booking confirmed
-    if (confirmation) {
-        alert("Booking successful! Enjoy your trip.");
-        //Reset input fields
-        document.getElementById("from").value = "";
-        document.getElementById("to").value = "";
-        document.getElementById("date").value = "";
-        document.getElementById("seats").value = "";
-
+    //Check if the values are valid(present or absent)
+    if (!attendanceArr.every(
+            (value) => value === "Present" || value === "Absent" || value === "Late"
+        )) {
+        alert("Invalid attendance! Enter either Present or Absent or Late");
+        return;
     }
+
+    //Update Attendance in the table
+    document.getElementById("Rahul-attendance").textContent = attendanceArr[0];
+    document.getElementById("Bhuva-attendance").textContent = attendanceArr[1];
+    document.getElementById("alex-attendance").textContent = attendanceArr[2];
+
+    //Clear the attendance input field
+    document.getElementById("attendance").value = "";
 }
